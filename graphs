@@ -1,0 +1,49 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+% matplotlib inline
+
+recent_grads = pd.read_csv("recent-grads.csv")
+recent_grads.iloc[0:]
+
+recent_grads.head()
+recent_grads.tail()
+
+raw_data_count = recent_grads.count
+recent_grads = recent_grads.dropna()
+cleaned_data_count = recent_grads.count()
+print(raw_data_count)
+print(cleaned_data_count)
+
+recent_grads.plot(x = "Sample_size", y = "Median", kind = "scatter")
+recent_grads.plot(x = "Sample_size", y = "Unemployment_rate", kind = "scatter")
+recent_grads.plot(x = "Full_time", y = "Median", kind = "scatter")
+recent_grads.plot(x = "ShareWomen", y = "Unemployment_rate", kind = "scatter")
+recent_grads.plot(x = "Men", y = "Median", kind = "scatter")
+recent_grads.plot(x = "Women", y = "Median", kind = "scatter")
+
+cols = ["Sample_size", "Median", "Employed", "Full_time", "ShareWomen", "Unemployment_rate", "Men", "Women"]
+
+fig, ax = plt.subplots(len(cols), 1, figsize = (6,12))
+plt.tight_layout()
+for r in range(len(cols)):
+    plt.subplot(len(cols), 1, r + 1)
+    recent_grads[cols[r]].hist()
+
+    
+import pandas.tools.plotting as pdp
+
+pdp.scatter_matrix(recent_grads[["Sample_size", "Median"]], figsize= (10,10))
+pdp.scatter_matrix(recent_grads[["Sample_size", "Median", "Unemployment_rate"]], figsize = (10,10))
+
+recent_grads[:10].plot.bar(x="Major", y = "Unemployment_rate")
+recent_grads[-10:].plot.bar(x="Major", y = "Unemployment_rate")    
+
+
+
+
+
+
+
+
+
+
